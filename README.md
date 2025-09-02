@@ -1,5 +1,7 @@
 # ThermoVision
 
+![](results/plots/Power_Level_vs_Current_Density.png)
+
 **ThermoVision** is a modular IoT robot designed for **autonomous navigation, vision-based object detection, and temperature-based actuation**. It integrates three major subsystems:
 
 1. **Raspberry Pi 5 + Hailo-8 AI HAT**: Runs real-time vision and depth estimation using YOLOv8-Nano and SCDepthV3, communicates with ESP32-A via USB serial, and publishes temperature readings via MQTT.
