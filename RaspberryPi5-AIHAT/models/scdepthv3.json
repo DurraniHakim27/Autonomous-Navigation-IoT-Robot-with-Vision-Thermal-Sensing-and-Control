@@ -1,0 +1,34 @@
+
+{
+  "ConfigVersion": 10,
+  "Checksum": "9ea614b1c4937ee5b2c54f2f62a30851105ffc45473b1122878b7862746b9b5e",
+  "DEVICE": [
+    {
+      "DeviceType": "HAILO8",
+      "RuntimeAgent": "HAILORT",
+      "SupportedDeviceTypes": "HAILORT/HAILO8,N2X/CPU,TFLITE/CPU"
+    }
+  ],
+ "PRE_PROCESS": [
+  {
+    "InputType": "Image",
+    "InputN": 1,
+    "InputH": 256,
+    "InputW": 320,
+    "InputC": 3,
+    "InputResizeMethod": "bilinear",
+    "InputPadMethod": "stretch",
+    "InputQuantEn": true
+  }
+],
+  "MODEL_PARAMETERS": [
+    {
+      "ModelPath": "scdepthv3.hef"
+    }
+  ],
+  "POST_PROCESS": [
+    {
+      "OutputPostprocessType": "None"
+    }
+  ]
+}
