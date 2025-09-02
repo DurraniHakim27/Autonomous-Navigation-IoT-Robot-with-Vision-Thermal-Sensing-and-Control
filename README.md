@@ -28,12 +28,12 @@ flowchart TD
 
 ## 🛠 Hardware Components
 
-- **Raspberry Pi 5** with power supply
+- **Raspberry Pi 5** with power supply (2P 18650 High Discharge Battery + TPS61088 5V Boost Converter)
 - **Hailo-8 AI HAT** for AI acceleration
 - **Raspberry Pi Camera**
-- **ESP32-A** (navigation)
+- **ESP32-A** (navigation) 
 - **ESP32-B** (thermal control)
-- **Mecanum Wheels x4** + **Motor Driver (e.g. L298N)**
+- **Mecanum Wheels x4** + **Motor Driver (e.g. TB6612FNG)** + Power Supply (2S 18650 Battery)
 - **MLX90614 IR Temperature Sensor** (I²C)
 - **DHT11 Temperature/Humidity Sensor** (fallback)
 - **Cooling Fans**
