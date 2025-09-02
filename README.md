@@ -5,7 +5,7 @@
 ### [Watch this Demo on YouTube](https://youtu.be/31H6UEh_g4s)
 
 
-**ThermoVision** is a modular IoT robot designed for **autonomous navigation, vision-based object detection, and temperature-based actuation**. It integrates three major subsystems:
+This repo presents **ThermoVision**, a modular IoT robot designed for **autonomous navigation, vision-based object detection, and temperature-based actuation**. It integrates three major subsystems:
 
 1. **Raspberry Pi 5 + Hailo-8 AI HAT**: Runs real-time vision and depth estimation using YOLOv8-Nano and SCDepthV3, communicates with ESP32-A via USB serial and MQTT.
 2. **ESP32-A (Navigation Controller)**: Receives alignment and depth data, controls mecanum wheels for omnidirectional navigation, and relays temperature readings.
