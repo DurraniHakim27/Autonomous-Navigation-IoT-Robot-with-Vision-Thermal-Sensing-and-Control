@@ -13,7 +13,8 @@
 ```mermaid
 flowchart TD
     Camera[Pi Camera] -->|Video Stream| Pi[Raspberry Pi 5 + Hailo-8]
-    Pi -->|x, depth via USB Serial| ESP32A[ESP32-A Navigation]
+    Pi -->|x, depth via USB Serial| ESP32A[ESP32-A]
+    Thermal[MLX90614] --> ESP32A
     ESP32A -->|Motor Control| Wheels[Mecanum Wheels]
     ESP32A -->|Temp via MQTT| ESP32B
     ESP32B --> Fan[Cooling Fans]
