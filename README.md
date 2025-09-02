@@ -1,5 +1,8 @@
 # ThermoVision
 
+[![Watch the video](https://img.youtube.com/vi/31H6UEh_g4s/maxresdefault.jpg)](https://youtu.be/31H6UEh_g4s)
+
+### [Watch this Demo on YouTube](https://youtu.be/31H6UEh_g4s)
 
 
 **ThermoVision** is a modular IoT robot designed for **autonomous navigation, vision-based object detection, and temperature-based actuation**. It integrates three major subsystems:
