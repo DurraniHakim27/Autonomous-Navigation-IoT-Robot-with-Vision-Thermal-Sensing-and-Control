@@ -4,9 +4,12 @@ from picamera2 import Picamera2
 import cv2
 import numpy as np
 import paho.mqtt.client as mqtt
+import serial  # <-- Added for USB serial
 
-
-
+# ==== SERIAL CONFIGURATION ====
+# Replace '/dev/ttyUSB0' with the port your ESP32 shows up as (check with ls /dev/ttyUSB*)
+ser = serial.Serial('/dev/ttyUSB0', 115200, timeout=1)
+time.sleep(2)  # wait for ESP32 reset
 
 # — MQTT CONFIGURATION —
 broker = '172.20.10.2'
@@ -140,6 +143,7 @@ while True:
 
     if detections:
         payload = json.dumps(detections)
+        ser.write((payload + "\n").encode('utf-8'))  # <-- newline terminator is important
         client.publish(topic, payload, qos=1)
         
 
@@ -164,4 +168,5 @@ while True:
 picam2.stop()
 client.loop_stop()
 client.disconnect()
+ser.close()
 cv2.destroyAllWindows()
