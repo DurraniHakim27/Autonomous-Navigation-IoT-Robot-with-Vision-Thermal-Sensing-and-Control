@@ -19,7 +19,7 @@ flowchart TD
     ESP32B --> Fan[Cooling Fans]
     ESP32B --> Buzzer[Buzzer Alarm]
     ESP32B -->|Telemetry| Blynk[Blynk IoT Dashboard]
-    ESP32B --> DHT11[DHT11 Fallback Sensor]
+    ESP32B <-- DHT11[DHT11 Fallback Sensor]
 ```
 
 ---
