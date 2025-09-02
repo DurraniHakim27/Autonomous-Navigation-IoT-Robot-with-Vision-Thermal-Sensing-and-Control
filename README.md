@@ -1,6 +1,6 @@
 # ThermoVision
 
-![](docs/yoloscdepth.png)
+
 
 **ThermoVision** is a modular IoT robot designed for **autonomous navigation, vision-based object detection, and temperature-based actuation**. It integrates three major subsystems:
 
@@ -90,7 +90,7 @@ ThermoVision/
   ```bash
   python3 image_pipeline.py
   ```
-
+![](docs/yoloscdepth.png)
 ### 2. ESP32-A (Navigation)
 
 - Open `navigation.ino` in Arduino IDE or PlatformIO.
