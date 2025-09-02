@@ -1,4 +1,4 @@
-# ThermoVision
+# Autonomous Navigation Plant Temperature Control Module
 
 [![Watch the video](https://img.youtube.com/vi/31H6UEh_g4s/maxresdefault.jpg)](https://youtu.be/31H6UEh_g4s)
 
