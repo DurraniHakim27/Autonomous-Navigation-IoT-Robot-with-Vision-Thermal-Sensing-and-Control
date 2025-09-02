@@ -149,14 +149,7 @@ This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) f
 
 ---
 
-## 👩‍💻 Contributors
 
-- **Durrani Hakim** – Image processing & ML
-- **Arraziq Faizal** – Navigation & ESP32-A
-- **Nisha Adlin** – Thermal control & Blynk
-- **Dr. Norashikin** – Project supervision & system design
-
----
 
 ## 📚 References
 
