@@ -53,18 +53,19 @@ ThermoVision/
 │   └── utils/                   # Helper functions
 │
 ├── ESP32-A/
-│   ├── navigation.ino           # Navigation firmware (Arduino/PlatformIO)
-│   └── libraries/               # Dependencies (Motor, MQTT, MLX90614)
+│   └── navigation.ino           # Navigation firmware (Arduino/PlatformIO)
+│    
 │
-├── ESP32-B/
-│   ├── thermal_control.ino      # Fan, buzzer, Blynk, DHT11, MQTT
-│   └── libraries/               # Dependencies (Blynk, DHT, MQTT)
+├── ESP32-B/      
+│   └── thermal_control.ino               # Fan, buzzer, Blynk, DHT11, MQTT
 │
 ├── docs/
 │   ├── architecture.png         # System diagram
-│   ├── yolo_detection_example.png
-│   ├── depth_map_example.png
-│   └── blynk_dashboard.png
+│   ├── yolo.png
+│   ├── yoloscdepth.png
+|   ├── ewma.png
+│   └── blynk.png
+    
 │
 ├── LICENSE
 └── README.md
