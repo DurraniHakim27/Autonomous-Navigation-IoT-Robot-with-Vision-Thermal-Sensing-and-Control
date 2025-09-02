@@ -1,6 +1,6 @@
 # ThermoVision
 
-![](docs/yoloscdept.png)
+![w](docs/yoloscdept.png)
 
 **ThermoVision** is a modular IoT robot designed for **autonomous navigation, vision-based object detection, and temperature-based actuation**. It integrates three major subsystems:
 
