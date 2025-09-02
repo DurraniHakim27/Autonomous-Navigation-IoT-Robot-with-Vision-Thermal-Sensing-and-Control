@@ -1,14 +1,14 @@
-# Autonomous-Navigation-IoT-Robot-with-Vision-Thermal-Sensing-and-Control
+# ThermoVision
 
+**ThermoVision** is a modular IoT robot designed for **autonomous navigation, vision-based object detection, and temperature-based actuation**. It integrates three major subsystems:
 
-
-**ThermoVision** is a modular IoT robot that navigates using vision and acts based on temperature. It combines a Raspberry Pi 5 (with a Hailo-8 AI accelerator) for real-time image processing and depth estimation, an ESP32‑A microcontroller for driving a mecanum-wheeled chassis, and an ESP32‑B microcontroller for thermal control (fans, buzzer) and remote monitoring via Blynk.
-
-The Pi runs a parallel pipeline of a YOLOv8-Nano object detector and SCDepthV3 monocular depth estimator; it sends the detected object’s horizontal position (x-coordinate) and depth over USB serial to ESP32-A. The Pi also reads an MLX90614 IR thermometer to measure object temperature and publishes it via MQTT. ESP32-A aligns and drives the robot toward the object (using the 4-omnidirectional mecanum wheels) and relays temperature data. ESP32-B subscribes to the temperature MQTT topic to activate fans or a buzzer if thresholds are exceeded, and displays real-time data on a Blynk dashboard.
+1. **Raspberry Pi 5 + Hailo-8 AI HAT**: Runs real-time vision and depth estimation using YOLOv8-Nano and SCDepthV3, communicates with ESP32-A via USB serial, and publishes temperature readings via MQTT.
+2. **ESP32-A (Navigation Controller)**: Receives alignment and depth data, controls mecanum wheels for omnidirectional navigation, and relays temperature readings.
+3. **ESP32-B (Thermal Control)**: Subscribes to MQTT temperature data, activates fans and buzzer alarms, and publishes monitoring data to a Blynk IoT dashboard. Includes a DHT11 fallback sensor.
 
 ---
 
-## System Architecture
+## 📐 System Architecture
 
 ```mermaid
 flowchart TD
@@ -19,93 +19,149 @@ flowchart TD
     ESP32A -->|Temp via MQTT| ESP32B
     ESP32B --> Fan[Cooling Fans]
     ESP32B --> Buzzer[Buzzer Alarm]
-    ESP32B -->|Data| Blynk[Blynk IoT Dashboard]
+    ESP32B -->|Telemetry| Blynk[Blynk IoT Dashboard]
+    ESP32B --> DHT11[DHT11 Fallback Sensor]
 ```
 
 ---
 
-## Hardware Components
+## 🛠 Hardware Components
 
-- **Raspberry Pi 5** + **Hailo-8 AI HAT**
-- **Pi Camera**
-- **ESP32-A** (Navigation)
-- **ESP32-B** (Thermal Control)
-- **Mecanum Wheels x4** + motor driver (L298N or similar)
-- **MLX90614 IR Temperature Sensor**
-- **DHT11 Sensor** (backup)
+- **Raspberry Pi 5** with power supply
+- **Hailo-8 AI HAT** for AI acceleration
+- **Raspberry Pi Camera**
+- **ESP32-A** (navigation)
+- **ESP32-B** (thermal control)
+- **Mecanum Wheels x4** + **Motor Driver (e.g. L298N)**
+- **MLX90614 IR Temperature Sensor** (I²C)
+- **DHT11 Temperature/Humidity Sensor** (fallback)
 - **Cooling Fans**
 - **Buzzer Alarm**
+- **Miscellaneous:** wiring, breadboards/PCB, batteries or DC power supply
 
 ---
 
-## Repository Structure
+## 📂 Repository Structure
 
 ```
 ThermoVision/
 ├── RaspberryPi5-AIHAT/
-│   ├── image_pipeline.py
-│   ├── requirements.txt
-│   └── models/
+│   ├── image_pipeline.py        # Main Python script (YOLO + SCDepth + Serial + MQTT)
+│   ├── requirements.txt         # Dependencies
+│   ├── models/                  # YOLO and SCDepth models
+│   └── utils/                   # Helper functions
+│
 ├── ESP32-A/
-│   └── navigation.ino
+│   ├── navigation.ino           # Navigation firmware (Arduino/PlatformIO)
+│   └── libraries/               # Dependencies (Motor, MQTT, MLX90614)
+│
 ├── ESP32-B/
-│   └── thermal_control.ino
+│   ├── thermal_control.ino      # Fan, buzzer, Blynk, DHT11, MQTT
+│   └── libraries/               # Dependencies (Blynk, DHT, MQTT)
+│
 ├── docs/
-│   └── architecture.png
+│   ├── architecture.png         # System diagram
+│   ├── yolo_detection_example.png
+│   ├── depth_map_example.png
+│   └── blynk_dashboard.png
+│
 ├── LICENSE
 └── README.md
 ```
 
 ---
 
-## Setup Instructions
+## ⚙️ Setup Instructions
 
-### Raspberry Pi 5 + AI HAT
-- Install dependencies: `pip install -r requirements.txt`
-- Connect Pi Camera & MLX90614
-- Run pipeline: `python3 image_pipeline.py`
+### 1. Raspberry Pi 5 + Hailo-8 AI HAT
 
-### ESP32-A
-- Flash `navigation.ino` with Arduino IDE/PlatformIO
-- Connect to motor driver + MLX90614
+- Flash Raspberry Pi OS and enable PCIe + Camera.
+- Install dependencies:  
+  ```bash
+  sudo apt update && sudo apt install python3-pip mosquitto mosquitto-clients
+  pip install -r requirements.txt
+  ```
+- Connect **Pi Camera** and **MLX90614** (I²C enabled).
+- Configure MQTT broker (Mosquitto) on Pi or external server.
+- Run:
+  ```bash
+  python3 image_pipeline.py
+  ```
 
-### ESP32-B
-- Flash `thermal_control.ino`
-- Configure Wi-Fi & Blynk token
-- Wire fans, buzzer, DHT11
+### 2. ESP32-A (Navigation)
 
-### MQTT Broker
-- Run Mosquitto broker on Pi or local server
-- Topics: `thermovision/temperature`
+- Open `navigation.ino` in Arduino IDE or PlatformIO.
+- Install required libraries (PubSubClient, Adafruit MLX90614, motor driver library).
+- Configure serial port for USB connection to Pi.
+- Flash code to ESP32-A.
+- Connect motor driver and mecanum wheels.
+
+### 3. ESP32-B (Thermal Control)
+
+- Open `thermal_control.ino`.
+- Install libraries (Blynk, PubSubClient, DHT).
+- Insert Wi-Fi credentials and Blynk Auth Token.
+- Flash code to ESP32-B.
+- Wire fans, buzzer, and DHT11.
+
+### 4. MQTT Broker
+
+- Default topic: `thermovision/temperature`
+- Run MQTT client to monitor:
+  ```bash
+  mosquitto_sub -h localhost -t thermovision/temperature
+  ```
 
 ---
 
-## Running the System
+## 🚀 Running the System
 
-1. Power Raspberry Pi and both ESP32 boards.
+1. Power on Raspberry Pi, ESP32-A, and ESP32-B.
 2. Start `image_pipeline.py` on Pi.
-3. ESP32-A navigates toward detected objects.
-4. ESP32-B controls fans/buzzer and updates Blynk dashboard.
+3. ESP32-A receives serial data and navigates robot.
+4. ESP32-B monitors MQTT data and updates Blynk dashboard.
+5. Test with objects in front of Pi Camera:
+   - YOLOv8 detects objects
+   - SCDepth estimates distance
+   - ESP32-A drives toward target
+   - ESP32-B activates fan/buzzer if overheating
 
 ---
 
-## Example Outputs
+## 📊 Example Outputs
 
-- **YOLO Detection:** Bounding boxes with labels on objects.
-- **Depth Estimation:** Stabilized depth values with ±0.5cm variance.
-- **Blynk Dashboard:** Displays temperature readings and fan status in real time.
+- **YOLO Detection:** Annotated bounding boxes with labels and confidences.
+- **Depth Estimation:** Stabilized distance values with ±0.5 cm error.
+- **Thermal Control:** Fan at PWM 85 for 28.5 °C, max 255 + buzzer at 40.7 °C.
+- **Blynk Dashboard:** Real-time temperature readings, fan status, and alerts.
+
+Example screenshots are available in the `docs/` folder:
+- `yolo_detection_example.png`
+- `depth_map_example.png`
+- `blynk_dashboard.png`
 
 ---
 
-## License
+## 📜 License
 
-This project is licensed under the **MIT License**. See [LICENSE](LICENSE) for details.
+This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) file for details.
 
 ---
 
-## Contributors
+## 👩‍💻 Contributors
 
-- **Durrani Hakim**  
-- **Arraziq Faizal**  
-- **Nisha Adlin**  
-- **Dr. Norashikin**  
+- **Durrani Hakim** – Image processing & ML
+- **Arraziq Faizal** – Navigation & ESP32-A
+- **Nisha Adlin** – Thermal control & Blynk
+- **Dr. Norashikin** – Project supervision & system design
+
+---
+
+## 📚 References
+
+- YOLOv8 Object Detection【Ultralytics】
+- SCDepthV3: Monocular Depth Estimation【IEEE TPAMI 2024】
+- Mecanum Wheels Overview【Sensors Journal】
+- MLX90614 Datasheet【Melexis】
+- ESP32 Documentation【Espressif】
+- Blynk IoT Platform【Blynk】
