@@ -137,9 +137,14 @@ ThermoVision/
 - **Blynk Dashboard:** Real-time temperature readings, fan status, and alerts.
 
 Example screenshots are available in the `docs/` folder:
-- `yolo_detection_example.png`
-- `depth_map_example.png`
-- `blynk_dashboard.png`
+- `yolo.png`
+- `yoloscdepth.png`
+- `blynk.jpg`
+-  `ewma.png`
+
+
+
+
 
 ---
 
