@@ -47,9 +47,8 @@ flowchart TD
 ```
 ThermoVision/
 ├── RaspberryPi5-AIHAT/
-│   ├── image_pipeline.py        # Main Python script (YOLO + SCDepth + Serial + MQTT)
 │   ├── requirements.txt         # Dependencies
-│   ├── models/                  # YOLO and SCDepth models
+│   ├── models/                  # Main Python script (YOLO + SCDepth + Serial + MQTT) 
 │   └── utils/                   # Helper functions
 │
 ├── ESP32-A/
