@@ -87,7 +87,7 @@ ThermoVision/
   sudo apt update && sudo apt install python3-pip mosquitto mosquitto-clients
   pip install -r requirements.txt
   ```
-- Connect **Pi Camera** and **MLX90614** (I²C enabled).
+- Connect **Pi Camera**.
 - Configure MQTT broker (Mosquitto) on Pi or external server.
 - Run:
   ```bash
@@ -96,6 +96,7 @@ ThermoVision/
 ![](docs/yoloscdepth.png)
 ### 2. ESP32-A (Navigation)
 
+- - Connect  **MLX90614** (I²C enabled).
 - Open `navigation.ino` in Arduino IDE or PlatformIO.
 - Install required libraries (PubSubClient, Adafruit MLX90614, motor driver library).
 - Configure serial port for USB connection to Pi.
