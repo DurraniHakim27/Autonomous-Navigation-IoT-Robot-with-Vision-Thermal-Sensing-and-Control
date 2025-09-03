@@ -96,7 +96,7 @@ ThermoVision/
 ![](docs/yoloscdepth.png)
 ### 2. ESP32-A (Navigation)
 
-- - Connect  **MLX90614** (I²C enabled).
+- Connect  **MLX90614** (I²C enabled).
 - Open `navigation.ino` in Arduino IDE or PlatformIO.
 - Install required libraries (PubSubClient, Adafruit MLX90614, motor driver library).
 - Configure serial port for USB connection to Pi.
